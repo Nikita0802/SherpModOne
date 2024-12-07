@@ -1,0 +1,15 @@
+@use 'forward';
+
+body {
+	font-family: forward.$font;
+}
+
+a {
+	transition: forward.$tr;
+	font-size: 60px;
+	color: forward.$dark;
+}
+
+a:hover {
+	color: forward.$accent;
+}
