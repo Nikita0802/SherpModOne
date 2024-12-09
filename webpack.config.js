@@ -1,6 +1,8 @@
 const path = require('path');
-const HtmlWebpackPlagin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 
 const devServer = (isDev) => !isDev ? {} : {
 	devServer: {
@@ -13,13 +15,34 @@ const devServer = (isDev) => !isDev ? {} : {
 module.exports = ({ develop }) => ({
 	mode: develop ? 'development' : 'production',
 	entry: './src/index.js',
+
+	// Из GPT оптимизация
+	// performance: {
+	// 	maxAssetSize: 500000, // Увеличиваем лимит до 500 KiB
+	// 	hints: 'warning',     // Предупреждение вместо ошибки
+	// },
+	// optimization: {
+	// 	minimize: true,
+	// 	minimizer: [
+	// 		new TerserPlugin({ // Минификация JS
+	// 			terserOptions: {
+	// 				compress: {
+	// 					drop_console: true, // Убирает console.log
+	// 				},
+	// 			},
+	// 		}),
+	// 		new CssMinimizerPlugin(), // Минификация CSS
+	// 	],
+	// },
+	// !!
+
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
 		clean: true,
 	},
 	plugins: [
-		new HtmlWebpackPlagin({
+		new HtmlWebpackPlugin({
 			template: './src/index.html'
 		}),
 		new MiniCssExtractPlugin({
