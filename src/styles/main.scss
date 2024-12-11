@@ -5,6 +5,7 @@ body {
 	font-weight: 400;
 	background-color: #2a2f36;
 	color: forward.$light;
+	overflow-x: hidden;
 }
 
 a {
@@ -19,6 +20,7 @@ a {
 	height: 71px;
 	position: fixed;
 	top: 0;
+	z-index: 999;
 
 	&::before {
 		content: '';
@@ -116,6 +118,9 @@ a {
 
 	&__main {
 		flex-basis: 61%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	&__info {
@@ -139,21 +144,81 @@ a {
 		border-right: none;
 		border-radius: 20px 0 0 20px;
 		position: relative;
+		padding: 30px;
 		margin-right: 80px;
+		box-sizing: border-box;
+		transition: forward.$tr;
+		z-index: 1;
 
-		&>p {
-			font-weight: 200;
-			font-size: 24px;
-			line-height: 110%;
+		&:hover {
+			&::before {
+				width: 100%;
+				opacity: 1;
+				transform: translate(0, 0) scale(1);
+			}
 
-			&>span {
-				font-weight: 700;
-				font-size: 32px;
-				line-height: 110%;
+			.banner__decor {
+				background-color: forward.$accent;
+				border: 1px solid forward.$accent;
+
+				&::after {
+					opacity: 1;
+					transform: translate(0, 0) scale(1);
+				}
 			}
 		}
 
-		&::after {
+		&::before {
+			content: '';
+			display: block;
+			height: 151px;
+			width: 0;
+			background-color: forward.$accent;
+			border: 1px solid forward.$accent;
+			border-radius: 20px 0 0 20px;
+			position: absolute;
+			right: 0;
+			top: -1px;
+			z-index: -1;
+			opacity: 0;
+			transform: translate(50%, 0) scale(0);
+			transition: forward.$tr;
+		}
+
+		&+& {
+			margin-top: 19px;
+		}
+	}
+
+	&__text {
+		font-weight: 200;
+		font-size: 24px;
+		line-height: 110%;
+		margin: 0;
+
+		span {
+			display: block;
+			font-weight: 700;
+			font-size: 32px;
+			margin-top: 20px;
+		}
+	}
+
+	&__decor {
+		width: 50px;
+		height: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		right: -78px;
+		border: 1px solid forward.$light;
+		border-radius: 10px;
+		box-sizing: border-box;
+		transition: forward.$tr;
+
+		&::before {
 			content: '';
 			display: block;
 			width: 80px;
@@ -162,18 +227,25 @@ a {
 			background-repeat: no-repeat;
 			background-size: contain;
 			position: absolute;
-			right: -80px;
-			top: 0;
+			right: 0;
+			top: -1px;
 		}
-	}
 
-	&__decor {
-		position: absolute;
-		top: 0;
-		right: -78px;
-		border: 1px solid forward.$light;
-		border-radius: 10px;
-		padding: 9px;
+		&::after {
+			content: '';
+			display: block;
+			width: 80px;
+			height: 151px;
+			transform: translate(-50%, 0) scale(0);
+			background-image: url(../images/banner-info-decor-hover.svg);
+			background-repeat: no-repeat;
+			background-size: contain;
+			position: absolute;
+			right: 0;
+			top: -1px;
+			opacity: 0;
+			transition: forward.$tr;
+		}
 	}
 
 	&__btn {
@@ -230,5 +302,46 @@ a {
 			top: -68px;
 			right: -20px;
 		}
+	}
+}
+
+.tag {
+	display: flex;
+	gap: 64px;
+	animation: move-left 30s infinite linear alternate;
+
+	&__text {
+		border: 1px solid forward.$grey;
+		border-radius: 50px;
+		padding: 10px 20px;
+		position: relative;
+		font-weight: 200;
+		font-size: 24px;
+		line-height: 110%;
+		color: forward.$grey;
+
+		&::before {
+			content: '';
+			background-image: url(../images/tag-ellipse.svg);
+			height: 16px;
+			width: 16px;
+			position: absolute;
+			top: 16px;
+			left: -40px;
+		}
+	}
+
+	&:hover {
+		animation-play-state: paused;
+	}
+}
+
+@keyframes move-left {
+	0% {
+		transform: translate(100%, 0);
+	}
+
+	100% {
+		transform: translate(-100%, 0);
 	}
 }
